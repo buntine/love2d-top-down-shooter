@@ -73,7 +73,12 @@ function spawnEnemy(td)
     spawnEnemyTimer = spawnEnemyTimer - (1 * td)
 
     if spawnEnemyTimer < 0 then
-        enemy = {x = math.random(10, love.graphics.getWidth() - enemyImage:getWidth() - 10), y = -enemyImage:getHeight(), image = enemyImage, speed = math.random(enemySpeedRange.low, enemySpeedRange.high)}
+        enemy = {
+          x = math.random(10, love.graphics.getWidth() - enemyImage:getWidth() - 10),
+          y = -enemyImage:getHeight(),
+          image = enemyImage,
+          speed = math.random(enemySpeedRange.low, enemySpeedRange.high)
+        }
         table.insert(enemies, enemy)
         spawnEnemyTimer = math.random(spawnEnemyRange.low, spawnEnemyRange.high)
     end
@@ -96,6 +101,13 @@ function positionBullets(td)
         if b.y < 0 then
             table.remove(bullets, i)
         end
+
+        for n, e in ipairs(enemies) do
+            if collision(b, e) then
+                table.remove(bullets, i)
+                table.remove(enemies, n)
+            end
+        end
     end
 end
 
@@ -113,4 +125,16 @@ function drawEnemies()
     for i, e in ipairs(enemies) do
         love.graphics.draw(e.image, e.x, e.y)
     end
+end
+
+function collision(a, b)
+    aw = a.image:getWidth()
+    ah = a.image:getHeight()
+    bw = b.image:getWidth()
+    bh = b.image:getHeight()
+
+    return a.x < (b.x + bw) and
+      b.x < (a.x + aw) and
+      a.y < (b.y + bh) and
+      b.y < (a.y + ah)
 end
