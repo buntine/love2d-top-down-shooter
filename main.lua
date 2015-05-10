@@ -2,8 +2,9 @@ canShoot = true
 shootMax = 0.2
 shootTimer = shootMax
 
-spawnEnemyMax = 1.1
-spawnEnemyTimer = spawnEnemyMax
+enemySpeedRange = {low = 100, high = 190}
+spawnEnemyRange = {low = 0.5, high = 1.6}
+spawnEnemyTimer = spawnEnemyRange.low
 
 bulletImage = nil
 enemyImage = nil
@@ -14,7 +15,7 @@ player = {x = 200, y = 710, speed = 150, image = nil}
 
 function love.load(a)
     bulletImage = love.graphics.newImage("assets/bullet_2_orange.png")
-    enemyImage = love.graphics.newImage("assets/Aircraft_10.png")
+    enemyImage = love.graphics.newImage("assets/Enemy_Aircraft_01.png")
     player.image = love.graphics.newImage("assets/Aircraft_03.png")
 end
 
@@ -72,9 +73,9 @@ function spawnEnemy(td)
     spawnEnemyTimer = spawnEnemyTimer - (1 * td)
 
     if spawnEnemyTimer < 0 then
-        enemy = {x = 100, y = 0, image = enemyImage, speed = 100}
+        enemy = {x = math.random(10, love.graphics.getWidth() - enemyImage:getWidth() - 10), y = -enemyImage:getHeight(), image = enemyImage, speed = math.random(enemySpeedRange.low, enemySpeedRange.high)}
         table.insert(enemies, enemy)
-        spawnEnemyTimer = spawnEnemyMax
+        spawnEnemyTimer = math.random(spawnEnemyRange.low, spawnEnemyRange.high)
     end
 end
 
