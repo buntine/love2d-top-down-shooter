@@ -14,6 +14,7 @@ player = {x = 200, y = 710, speed = 150, image = nil}
 
 function love.load(a)
     bulletImage = love.graphics.newImage("assets/bullet_2_orange.png")
+    enemyImage = love.graphics.newImage("assets/Aircraft_10.png")
     player.image = love.graphics.newImage("assets/Aircraft_03.png")
 end
 
@@ -71,7 +72,6 @@ function spawnEnemy(td)
     spawnEnemyTimer = spawnEnemyTimer - (1 * td)
 
     if spawnEnemyTimer < 0 then
-        print "Enemy"
         enemy = {x = 100, y = 0, image = enemyImage, speed = 100}
         table.insert(enemies, enemy)
         spawnEnemyTimer = spawnEnemyMax
@@ -79,6 +79,13 @@ function spawnEnemy(td)
 end
 
 function positionEnemies(td)
+    for i, e in ipairs(enemies) do
+        e.y = e.y + (e.speed * td)
+
+        if e.y > love.graphics.getHeight() then
+            table.remove(enemies, i)
+        end
+    end
 end
 
 function positionBullets(td)
@@ -102,4 +109,7 @@ function drawBullets()
 end
 
 function drawEnemies()
+    for i, e in ipairs(enemies) do
+        love.graphics.draw(e.image, e.x, e.y)
+    end
 end
