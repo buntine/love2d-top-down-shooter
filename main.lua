@@ -58,6 +58,9 @@ function tryShoot(td)
         canShoot = false
         shootTimer = shootMax
 
+        laser = love.audio.newSource("assets/gun.ogg", "static")
+        laser:play()
+
         table.insert(bullets, bullet)
     end
 end
