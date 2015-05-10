@@ -112,6 +112,9 @@ function positionBullets(td)
 
         for n, e in ipairs(enemies) do
             if collision(b, e) then
+                hit = love.audio.newSource("assets/hit.ogg", "static")
+                hit:play()
+
                 table.remove(bullets, i)
                 table.remove(enemies, n)
             end
