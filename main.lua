@@ -1,9 +1,13 @@
 canShoot = true
 canShootMax = 0.2
 canShootTimer = canShootMax
+spawnEnemyMax = 0.2
+spawnEnemyTimer = spawnEnemyMax
 bulletImage = nil
+enemyImage = nil
 
 bullets = {}
+enemies = {}
 player = {x = 200, y = 710, speed = 150, image = nil}
 
 function love.load(a)
@@ -16,6 +20,7 @@ function love.update(td)
     tryMove(td)
     tryShoot(td)
     positionBullets(td)
+    positionEnemies(td)
 end
 
 function love.draw(td)
@@ -56,6 +61,9 @@ function tryMove(td)
             player.x = player.x + (player.speed * td)
         end
     end
+end
+
+function positionEnemies(td)
 end
 
 function positionBullets(td)
