@@ -50,10 +50,15 @@ function tryShoot(td)
     end
 
     if love.keyboard.isDown(' ') and canShoot then
-        bullet = {x = player.x + (player.image:getWidth() / 2), y = player.y, image = bulletImage, speed = 140}
-        table.insert(bullets, bullet)
+        bullet = {
+          x = player.x + (player.image:getWidth() / 2),
+          y = player.y,
+          image = bulletImage, 
+          speed = 140}
         canShoot = false
         shootTimer = shootMax
+
+        table.insert(bullets, bullet)
     end
 end
 
@@ -77,10 +82,10 @@ function spawnEnemy(td)
           x = math.random(10, love.graphics.getWidth() - enemyImage:getWidth() - 10),
           y = -enemyImage:getHeight(),
           image = enemyImage,
-          speed = math.random(enemySpeedRange.low, enemySpeedRange.high)
-        }
-        table.insert(enemies, enemy)
+          speed = math.random(enemySpeedRange.low, enemySpeedRange.high)}
         spawnEnemyTimer = math.random(spawnEnemyRange.low, spawnEnemyRange.high)
+
+        table.insert(enemies, enemy)
     end
 end
 
@@ -128,10 +133,8 @@ function drawEnemies()
 end
 
 function collision(a, b)
-    aw = a.image:getWidth()
-    ah = a.image:getHeight()
-    bw = b.image:getWidth()
-    bh = b.image:getHeight()
+    aw, ah = a.image:getDimensions()
+    bw, bh = b.image:getDimensions()
 
     return a.x < (b.x + bw) and
       b.x < (a.x + aw) and
