@@ -5,8 +5,25 @@ function love.load(a)
 end
 
 function love.update(td)
+    tryKill()
+    tryMove(td)
+end
+
+function tryKill()
     if love.keyboard.isDown("escape") then
         love.event.push("quit")
+    end
+end
+
+function tryMove(td)
+    if love.keyboard.isDown("left") then
+        if player.x > 0 then
+            player.x = player.x - (player.speed * td)
+        end
+    elseif love.keyboard.isDown("right") then
+        if player.x < (love.graphics.getWidth() - player.image:getWidth()) then
+            player.x = player.x + (player.speed * td)
+        end
     end
 end
 
