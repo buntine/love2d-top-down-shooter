@@ -14,9 +14,9 @@ enemies = {}
 player = {x = 200, y = 710, speed = 150, image = nil}
 
 function love.load(a)
-    bulletImage = love.graphics.newImage("assets/bullet_2_orange.png")
-    enemyImage = love.graphics.newImage("assets/Enemy_Aircraft_01.png")
-    player.image = love.graphics.newImage("assets/Aircraft_03.png")
+    bulletImage = love.graphics.newImage("assets/bullet.png")
+    enemyImage = love.graphics.newImage("assets/enemy.png")
+    player.image = love.graphics.newImage("assets/hero.png")
 end
 
 function love.update(td)
